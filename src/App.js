@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
-import Snake from "./Snake";
-import Food from "./Rat";
+import Snake from "./components/Snake";
+import Food from "./components/Rat";
 import Styles from "./Styles";
 import Backdrop from "./components/Backdrop/Backdrop";
+import GameOver from "./components/GameOver";
 
 //function to get the random position for rat
 const getRandomPosition = () => {
@@ -121,6 +122,9 @@ class App extends Component {
   }
 
   checkIfEat() {
+    if (this.state.showBackdrop) {
+      return;
+    }
     let head = this.state.snakeBody[this.state.snakeBody.length - 1];
     let rat = this.state.rat;
     if (head[0] === rat[0] && head[1] === rat[1]) {
@@ -154,11 +158,18 @@ class App extends Component {
     // this.setState(initialState);
   }
 
+  onPlayAgainClicked = () => {
+    this.setState(initialState);
+  };
+
   render() {
     return (
       <Fragment>
         <Backdrop show={this.state.showBackdrop}>
-          <h1>Game over </h1>{" "}
+          <GameOver
+            score={this.state.snakeBody.length - 2}
+            clicked={this.onPlayAgainClicked}
+          />
         </Backdrop>
         <div style={Styles.scoreStyle}>
           {" "}
