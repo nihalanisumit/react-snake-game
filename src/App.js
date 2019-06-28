@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Snake from "./Snake";
 import Food from "./Rat";
 import Styles from "./Styles";
+import Backdrop from "./components/Backdrop/Backdrop";
 
 //function to get the random position for rat
 const getRandomPosition = () => {
@@ -17,7 +18,8 @@ const initialState = {
   rat: getRandomPosition(),
   gameSpeed: 200,
   snakeBody: [[0, 0], [4, 0]],
-  direction: "RIGHT"
+  direction: "RIGHT",
+  showBackdrop: null
 };
 
 class App extends Component {
@@ -65,6 +67,9 @@ class App extends Component {
   };
 
   moveSnake = () => {
+    if (this.state.showBackdrop) {
+      return;
+    }
     let body = [...this.state.snakeBody];
     let head = body[body.length - 1];
 
@@ -92,6 +97,9 @@ class App extends Component {
   };
 
   checkIfOutOfBorders() {
+    if (this.state.showBackdrop) {
+      return;
+    }
     let head = this.state.snakeBody[this.state.snakeBody.length - 1];
     if (head[0] >= 100 || head[1] >= 100 || head[0] < 0 || head[1] < 0) {
       this.onGameOver();
@@ -99,6 +107,9 @@ class App extends Component {
   }
 
   checkIfCollapsed() {
+    if (this.state.showBackdrop) {
+      return;
+    }
     let snake = [...this.state.snakeBody];
     let head = snake[snake.length - 1];
     snake.pop();
@@ -138,13 +149,17 @@ class App extends Component {
   }
 
   onGameOver() {
-    alert(`Game Over. Snake length is ${this.state.snakeBody.length}`);
-    this.setState(initialState);
+    // alert(`Game Over. Snake length is ${this.state.snakeBody.length}`);
+    this.setState({ showBackdrop: true });
+    // this.setState(initialState);
   }
 
   render() {
     return (
       <Fragment>
+        <Backdrop show={this.state.showBackdrop}>
+          <h1>Game over </h1>{" "}
+        </Backdrop>
         <div style={Styles.scoreStyle}>
           {" "}
           Score : {this.state.snakeBody.length - 2}
