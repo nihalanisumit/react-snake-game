@@ -200,15 +200,24 @@ class SnakeGame extends Component {
           <Backdrop show={this.state.showBackdrop}>
             <GameOver
               score={this.state.snakeBody.length - 2}
+              highestScore={this.props.highestScore || 0}
+              name={this.props.name || "Player1"}
               clicked={this.onPlayAgainClicked}
               //   resumeGame={this.toggleGamePlay}
               //   isPaused={this.state.isGamePaused}
             />
           </Backdrop>
-          <div style={Styles.scoreStyle}>
-            {" "}
-            Score : {this.state.snakeBody.length - 2}
+          <div style={{ flexDirection: "row" }}>
+            <div style={Styles.scoreStyle}>
+              {" "}
+              Score : {this.state.snakeBody.length - 2}
+            </div>
+            {/* <div style={Styles.scoreStyle}>
+              {" "}
+              Highest Score : {this.state.snakeBody.length - 2}
+            </div> */}
           </div>
+
           <div style={Styles.frameStyle}>
             <Snake snakeBody={this.state.snakeBody} />
             <Food dot={this.state.rat} />
