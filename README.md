@@ -1,3 +1,6 @@
+The apis for this project can be found at this github repository.
+https://github.com/nihalanisumit/node-snake-game
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
