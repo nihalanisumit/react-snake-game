@@ -10,7 +10,9 @@ class App extends Component {
   state = {
     isAuth: false,
     token: null,
-    userId: null
+    userId: null,
+    name: null,
+    highestScore: null
   };
 
   componentDidMount() {
@@ -44,19 +46,21 @@ class App extends Component {
     // this.props.history.replace("/signin");
   };
 
-  onLoginComplete = (isAuth, token, userId) => {
+  onLoginComplete = userData => {
     console.log(
       "onlog in complete method called, isAuth = " +
-        isAuth +
+        userData.isAuth +
         " token =" +
-        token +
+        userData.token +
         " userid =" +
-        userId
+        userData.userId
     );
     this.setState({
-      isAuth: isAuth,
-      token: token,
-      userId: userId
+      isAuth: userData.isAuth,
+      token: userData.token,
+      userId: userData.userId,
+      name: userData.name,
+      highestScore: userData.highestScore
     });
   };
 
@@ -66,7 +70,13 @@ class App extends Component {
         <Route path="/signup" component={Signup} />
         <Route
           path="/signin"
-          render={() => <Signin onLoginComplete={this.onLoginComplete} />}
+          render={() => (
+            <Signin
+              onLoginComplete={this.onLoginComplete}
+              name={this.state.name}
+              highestScore={this.state.highestScore}
+            />
+          )}
         />
         <Route path="/" exact component={SnakeGame} />
       </Switch>
@@ -74,7 +84,15 @@ class App extends Component {
     if (this.state.isAuth) {
       routes = (
         <Switch>
-          <Route path="/" component={SnakeGame} />
+          <Route
+            path="/"
+            render={() => (
+              <SnakeGame
+                name={this.state.name || "Player1"}
+                highestScore={this.state.highestScore}
+              />
+            )}
+          />
           />
         </Switch>
       );

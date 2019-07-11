@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classes from "./Auth.css";
 
 class Signup extends Component {
   state = {
@@ -22,7 +23,7 @@ class Signup extends Component {
   signupHandler = event => {
     event.preventDefault();
     this.setState({ authLoading: true });
-    fetch("http://localhost:8080/auth/signup", {
+    fetch("https://snake-game-node.herokuapp.com/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -62,29 +63,31 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <h1>sign up page</h1>
-        <form onSubmit={this.signupHandler}>
-          <input
-            type="text"
-            placeholder="enter your email id"
-            onChange={this.emailInputChangeHandler}
-            value={this.state.email}
-          />
-          <input
-            type="text"
-            placeholder="enter your name"
-            onChange={this.nameInputChangeHandler}
-            value={this.state.name}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            onChange={this.passwordInputChangeHandler}
-            value={this.state.password}
-          />
-          <input type="submit" value=" Sign up" />
-        </form>
+      <div className={classes.LoginPage}>
+        <div className={classes.Form}>
+          <form onSubmit={this.signupHandler}>
+            <input
+              type="text"
+              placeholder="enter your email id"
+              onChange={this.emailInputChangeHandler}
+              value={this.state.email}
+            />
+            <input
+              type="text"
+              placeholder="enter your name"
+              onChange={this.nameInputChangeHandler}
+              value={this.state.name}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={this.passwordInputChangeHandler}
+              value={this.state.password}
+            />
+            {/* <input type = "submit" value = "Sign up" /> */}
+            <button>Signup</button>
+          </form>
+        </div>
       </div>
     );
   }

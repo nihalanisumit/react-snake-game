@@ -5,7 +5,8 @@ const Styles = {
     height: "600px",
     border: "5px solid #164bb1",
     backgroundColor: "#000",
-    position: "relative"
+    position: "relative",
+    boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)"
   },
 
   scoreStyle: {
@@ -19,9 +20,9 @@ const Styles = {
     color: "#fff",
     fontFamily: "Sans-serif",
     fontSize: "20px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    // display: "flex",
+    // justifyContent: "center",
+    // alignItems: "center",
     textShadow: "1px 1px #164bb1"
   },
 

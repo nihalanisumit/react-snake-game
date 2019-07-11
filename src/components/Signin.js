@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import classes from "./Auth.css";
+
 class Signin extends Component {
   state = {
     email: "",
@@ -24,7 +26,7 @@ class Signin extends Component {
     console.log("sign in is tapped");
     event.preventDefault();
     this.setState({ authLoading: true });
-    fetch("http://localhost:8080/auth/signin", {
+    fetch("https://snake-game-node.herokuapp.com/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -52,7 +54,14 @@ class Signin extends Component {
           //   userId: resData.userId,
           authLoading: false
         });
-        this.props.onLoginComplete(true, resData.token, resData.userId);
+        let userData = {
+          isAuth: true,
+          token: resData.token,
+          userId: resData.userId,
+          name: resData.name,
+          highestScore: resData.highestScore || 0
+        };
+        this.props.onLoginComplete(userData);
         localStorage.setItem("token", resData.token);
         localStorage.setItem("userId", resData.userId);
         const remainingMilliseconds = 3 * 60 * 60 * 1000;
@@ -74,23 +83,25 @@ class Signin extends Component {
 
   render() {
     return (
-      <div>
-        <h1>sign in page</h1>
-        <form onSubmit={this.loginHandler}>
-          <input
-            type="text"
-            placeholder="enter your email id"
-            onChange={this.emailInputChangeHandler}
-            value={this.state.email}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            onChange={this.passwordInputChangeHandler}
-            value={this.state.password}
-          />
-          <input type="submit" value=" log in" />
-        </form>
+      <div className={classes.LoginPage}>
+        <div className={classes.Form}>
+          <form onSubmit={this.loginHandler}>
+            <input
+              type="text"
+              placeholder="enter your email id"
+              onChange={this.emailInputChangeHandler}
+              value={this.state.email}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={this.passwordInputChangeHandler}
+              value={this.state.password}
+            />
+            {/* <input type = "submit" value = "Sign in" /> */}
+            <button>Sign in</button>
+          </form>
+        </div>
       </div>
     );
   }
